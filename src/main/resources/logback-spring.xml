@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+
+    <springProperty name="logfile" source="logging.file" />
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!-- application.ymlのlog.fileを参照している -->
+    <property name="LOG_FILE" value="${logfile}"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
