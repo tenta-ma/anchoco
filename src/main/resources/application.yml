@@ -32,3 +32,8 @@ secret:
         region: ap-northeast-1
         secretname:
             xapikey: x-api-key
+## resilience4j
+### retry設定
+retry:
+    max-attempts: 3
+    wait-duration: 2

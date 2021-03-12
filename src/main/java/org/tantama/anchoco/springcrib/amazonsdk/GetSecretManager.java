@@ -1,13 +1,12 @@
 package org.tantama.anchoco.springcrib.amazonsdk;
 
 import java.util.Map;
-
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.tantama.anchoco.springcrib.helper.JsonHelper;
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -51,7 +50,6 @@ public class GetSecretManager {
             this.xApiKey = getValue(secretsClient, xApiKeySecretName);
             log.trace("api key is {}", this.xApiKey);
         }
-
     }
 
     /**
