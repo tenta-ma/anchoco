@@ -10,6 +10,7 @@ import org.mockserver.integration.ClientAndServer;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.tantama.anchoco.springcrib.helper.JsonHelper;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -36,6 +37,9 @@ class HttpConnectionTest {
     /** mock server のport */
     private static final int MOCK_SWERVER_PORT = 1080;
 
+    /** time out */
+    private final long timeout = 5;
+
     /**
      * テストクラス初期処理
      *
@@ -53,7 +57,6 @@ class HttpConnectionTest {
     @BeforeEach
     public void beforeMethod() {
 
-        final long timeout = 5;
         // create instance
         target = new HttpConnection(timeout);
         // set field parameter
@@ -83,6 +86,8 @@ class HttpConnectionTest {
                                 .withPath("/hogehoge"))
                 .respond(
                         org.mockserver.model.HttpResponse.response(JsonHelper.toJson(response))
+                                // withDelay : time out settings
+                                // .withDelay(TimeUnit.SECONDS, timeout + 1)
                                 .withStatusCode(HttpStatus.OK.value()));
 
         // setting test method parameter.
