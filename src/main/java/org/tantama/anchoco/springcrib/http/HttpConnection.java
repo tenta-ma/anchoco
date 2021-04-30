@@ -8,8 +8,10 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.tantama.anchoco.springcrib.helper.JsonHelper;
 
@@ -17,6 +19,7 @@ import org.tantama.anchoco.springcrib.helper.JsonHelper;
  * {@link java.net.http.HttpClient}を利用した
  * Http接続サンプル
  */
+@Slf4j
 public class HttpConnection {
 
     // notice. 本質はテストのスタブサーバーの利用方法
@@ -66,6 +69,33 @@ public class HttpConnection {
 
         try {
             HttpResponse<String> response = httpClient.send(httpRequest, BodyHandlers.ofString());
+
+            // httpstatus handling.
+            switch (HttpStatus.resolve(response.statusCode())) {
+                case OK:
+                    log.info("ok.");
+                    break;
+                case CREATED:
+                    // ok
+                    log.info("created.");
+                    break;
+                case CONFLICT:
+                    // user already exists.
+                    log.error("keycloak user already exists, exist username is {}.");
+                    // throw new InternalServerException("user already exists.");
+                    break;
+                case UNAUTHORIZED:
+                    // 認証トークンの有効切れ
+                    // time out error.
+                    // throw new ConnectionTimeoutException("unauthorized.");
+                    break;
+                default:
+                    // それ以外の想定外のステータス
+                    // server error
+                    // throw new InternalServerException("response status is illegal " +
+                    // response.statusCode() + ". ");
+                    break;
+            }
             return JsonHelper.toDto(response.body(), responseClass);
         } catch (IOException | InterruptedException e) {
             // tips. 実際に利用する場合は適当なクラスにwrapする
