@@ -71,6 +71,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- aop -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- apache common3. -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -103,7 +109,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ldap test. -->
+        <!-- ldap -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-ldap</artifactId>
