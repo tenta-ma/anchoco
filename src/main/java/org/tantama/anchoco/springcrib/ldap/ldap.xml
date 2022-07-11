@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/security
+        https://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider ref="ldapProvider"  />
+    </sec:authentication-manager>
+
+    <!-- authentication provider -->
+    <bean id="ldapProvider" class="com.system.infra.config.security.ldap.CustomLdapAuthenticationProvider">
+        <!-- 検索用LDAP設定 -->
+        <constructor-arg name="configList">
+            <util:list id="searchLdapList" value-type="com.system.infra.config.security.ldap.LdapConfig">
+                <ref bean="ldap1" />
+                <ref bean="ldap2" />
+            </util:list>
+        </constructor-arg>
+        <!-- 認証用LDAPのURL -->
+        <constructor-arg name="authProviderUrl" value="ldap://ap.ntttd-ccs.com:4389" />
+        <!-- when no need bind dn, set empty. -->
+        <constructor-arg name="authProviderBindDn" value="" />
+    </bean>
+
+    <!-- 1つめの設定 -->
+    <bean id="ldap1" class="com.system.infra.config.security.ldap.LdapConfig">
+        <constructor-arg name="id" value="ldap1" />
+        <!-- for aws open ldap. -->
+        <constructor-arg name="url" value="ldap://org.tantama:389" />
+        <constructor-arg name="userDn" value="cn=Manager,dc=tantama,dc=org" />
+        <constructor-arg name="password" value="P@ssw0rd" />
+        <constructor-arg name="baseDn" value="ou=Employee,dc=tantama,dc=org" />
+        <constructor-arg name="filter" value="cn" />
+    </bean>
+    <!-- 2つめの設定 -->
+    <bean id="ldap2" class="com.system.infra.config.security.ldap.LdapConfig">
+        <constructor-arg name="id" value="ldap2" />
+        <constructor-arg name="url" value="ldaps://org.tantama:686" />
+        <constructor-arg name="userDn" value="cn=Manager,dc=tantama,dc=org" />
+        <constructor-arg name="password" value="1qazxsw2" />
+        <constructor-arg name="baseDn" value="ou=Employee,dc=tantama,dc=org" />
+        <constructor-arg name="filter" value="uid" />
+    </bean>
+
+
+</beans>

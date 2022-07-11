@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /anchoco
+
+# log
+logging:
+   config: classpath:logback-spring.xml
+   group:
+      # 独自のカスタムログの定義
+      crib: org.tantama.anchoco.springcrib
+   # このファイル名(絶対path可)をlogback-spring.xmlに参照させたりすることが可能
+   file: application.log
+   level:
+      # 個別クラス(パッケージ)でのログレベル設定
+      org.springframework.web: DEBUG
+      java.net.http.HttpClient: DEBUG
+      org.springframework.web.client.RestTemplate: DEBUG
+      # 独自のカスタム定義の設定
+      crib: DEBUG
+
+# thymeleaf
+spring:
+    thymeleaf:
+        mode: HTML
+        cache: false
+
+# coustom application propaty
+## aws secret manager
+secret:
+    manager:
+        region: ap-northeast-1
+        secretname:
+            xapikey: x-api-key
+## resilience4j
+### retry設定
+retry:
+    max-attempts: 3
+    wait-duration: 2
