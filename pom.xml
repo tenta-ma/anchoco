@@ -21,6 +21,7 @@
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <spotbugs-maven-plugin.version>4.2.0</spotbugs-maven-plugin.version>
         <mockserver.version>5.11.2</mockserver.version>
+        <univapay.version>0.2.15</univapay.version>
     </properties>
 
     <dependencyManagement>
@@ -123,6 +124,13 @@
             <version>4.3.2-1.5.5</version>
         </dependency>
 
+        <!-- univapay -->
+        <dependency>
+            <groupId>com.univapay</groupId>
+            <artifactId>univapay-java-sdk</artifactId>
+            <version>${univapay.version}</version>
+        </dependency>
+        
     </dependencies>
 
     <build>
