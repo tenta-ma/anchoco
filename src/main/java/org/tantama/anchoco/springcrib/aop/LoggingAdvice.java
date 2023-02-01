@@ -1,6 +1,7 @@
 package org.tantama.anchoco.springcrib.aop;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -43,7 +44,7 @@ public class LoggingAdvice {
      * @param joinPoint
      * @param e         発生エラー
      */
-    @AfterThrowing(value = "execution(* com.system.infra.patool.controller.*.*(..))", throwing = "e")
+    @AfterThrowing(value = "execution(* org.tantama.anchoco.springcrib.*.*(..))", throwing = "e")
     public void abortContoller(JoinPoint joinPoint, Throwable e) {
         log.warn("abort contoller method : {}", joinPoint.toShortString());
     }
