@@ -44,7 +44,7 @@ public class LoggingAdvice {
      * @param joinPoint
      * @param e         発生エラー
      */
-    @AfterThrowing(value = "execution(* org.tantama.anchoco.springcrib.*.*(..))", throwing = "e")
+    @AfterThrowing(value = "execution(* org.tantama.anchoco.springcrib.controller.*.*(..))", throwing = "e")
     public void abortContoller(JoinPoint joinPoint, Throwable e) {
         log.warn("abort contoller method : {}", joinPoint.toShortString());
     }
