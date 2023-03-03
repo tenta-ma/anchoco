@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
+        <version>3.0.3</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.tantama.anchoco</groupId>
@@ -15,13 +15,16 @@
     <name>spring-anchoco</name>
     <description>spring boot 用のあんちょこ</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
         <awssdk.version>2.16.16</awssdk.version>
         <resilience4j.version>1.7.0</resilience4j.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <spotbugs-maven-plugin.version>4.2.0</spotbugs-maven-plugin.version>
         <mockserver.version>5.11.2</mockserver.version>
         <univapay.version>0.2.15</univapay.version>
+        <kintone.version>1.4.0</kintone.version>
     </properties>
 
     <dependencyManagement>
@@ -130,7 +133,19 @@
             <artifactId>univapay-java-sdk</artifactId>
             <version>${univapay.version}</version>
         </dependency>
-        
+
+        <!-- univapay -->
+        <dependency>
+            <groupId>com.univapay</groupId>
+            <artifactId>univapay-java-sdk</artifactId>
+            <version>${univapay.version}</version>
+        </dependency>
+        <!-- cybozu kintone -->
+    <dependency>
+      <groupId>com.kintone</groupId>
+      <artifactId>kintone-java-client</artifactId>
+      <version>${kintone.version}</version>
+    </dependency>
     </dependencies>
 
     <build>
@@ -184,57 +199,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- maven build switch profile example -->
-    <!-- ex. mvn package -P dev -e -->
-    <!-- 組み込みtomcat jar -->
-    <!-- <profiles> -->
-    <!-- <profile> -->
-    <!-- <id>local</id> -->
-    <!-- <activation> -->
-    <!-- <activeByDefault>true</activeByDefault> -->
-    <!-- </activation> -->
-    <!-- <properties> -->
-    <!-- <activatedProperties>local</activatedProperties> -->
-    <!-- </properties> -->
-    <!-- </profile> -->
-    <!-- <profile> -->
-    <!-- <id>dev</id> -->
-    <!-- <properties> -->
-    <!-- <activatedProperties>dev</activatedProperties> -->
-    <!-- </properties> -->
-    <!-- </profile> -->
-    <!-- </profiles> -->
-    <!-- use war -->
-    <!-- <profiles> -->
-    <!-- <profile> -->
-    <!-- <id>local</id> -->
-    <!-- <activation> -->
-    <!-- <activeByDefault>true</activeByDefault> -->
-    <!-- </activation> -->
-    <!-- <build> -->
-    <!-- <resources> -->
-    <!-- <resource> -->
-    <!-- <directory>src/main/resources</directory> -->
-    <!-- </resource> -->
-    <!-- </resources> -->
-    <!-- </build> -->
-    <!-- </profile> -->
-    <!-- <profile> -->
-    <!-- <id>dev</id> -->
-    <!-- <build> -->
-    <!-- <resources> -->
-    <!-- <resource> -->
-    <!-- src/main/resources にsrc/dev/resourcesのファイルを上書き配置する -->
-    <!-- <directory>src/dev/resources</directory> -->
-    <!-- </resource> -->
-    <!-- <resource> -->
-    <!-- <directory>src/main/resources</directory> -->
-    <!-- </resource> -->
-    <!-- </resources> -->
-    <!-- </build> -->
-    <!-- </profile> -->
-    <!-- </profiles> -->
-
-
 </project>
